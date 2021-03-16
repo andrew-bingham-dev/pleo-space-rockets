@@ -8,12 +8,10 @@ export async function getTimezone(launchSiteId) {
 	const longitude = launchSiteDetails.location.longitude;
 
 	// Fetch the timezone which corresponds with the launch site coordinates
-	const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=I8D39IMTCNHC&format=json&by=position&lat=${latitude}&lng=${longitude}`;
+	const key = process.env.REACT_APP_TIMEZONE_API_KEY;
+	const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&format=json&by=position&lat=${latitude}&lng=${longitude}`;
 	let timezone = await fetch(url);
 	timezone = await timezone.json();
 
-	console.log('lat: ', latitude);
-	console.log('long: ', longitude);
-	console.log('timezone: ', timezone.abbreviation);
 	return timezone.abbreviation;
 }

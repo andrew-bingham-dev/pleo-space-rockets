@@ -19,6 +19,7 @@ export function formatDateTime(timestamp) {
 	}).format(new Date(timestamp));
 }
 
+// Remove the timezone id
 export function formatDateTimeWithoutZone(timestamp) {
 	return new Intl.DateTimeFormat('en-US', {
 		year: 'numeric',
@@ -28,4 +29,10 @@ export function formatDateTimeWithoutZone(timestamp) {
 		minute: 'numeric',
 		second: 'numeric',
 	}).format(new Date(timestamp));
+}
+
+// Convert UTC datetime to local
+export function convertUtcToLocal(timestamp) {
+	let localDateTime = new Date(timestamp).toString();
+	return localDateTime;
 }

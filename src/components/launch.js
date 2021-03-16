@@ -19,11 +19,12 @@ import {
 	Stack,
 	AspectRatioBox,
 	StatGroup,
+	Tooltip,
 } from '@chakra-ui/core';
 
 import { useSpaceX } from '../utils/use-space-x';
 import { getTimezone } from '../utils/get-timezone';
-import { formatDateTime, formatDateTimeWithoutZone } from '../utils/format-date';
+import { convertUtcToLocal, formatDateTimeWithoutZone } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
 
@@ -39,8 +40,6 @@ export default function Launch() {
 			</Flex>
 		);
 	}
-
-	console.log('site id: ', launch.launch_site.site_id);
 
 	return (
 		<div>
@@ -137,9 +136,11 @@ function TimeAndLocation({ launch }) {
 						Launch Date
 					</Box>
 				</StatLabel>
-				<StatNumber fontSize={['md', 'xl']}>{`${formatDateTimeWithoutZone(
-					launch.launch_date_local
-				)} ${timezone}`}</StatNumber>
+				<StatNumber fontSize={['md', 'xl']}>
+					<Tooltip label={convertUtcToLocal(launch.launch_date_utc)}>{`${formatDateTimeWithoutZone(
+						launch.launch_date_local
+					)} ${timezone}`}</Tooltip>
+				</StatNumber>
 				<StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
 			</Stat>
 			<Stat>
