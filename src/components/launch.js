@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { format as timeAgo } from 'timeago.js';
 import { Watch, MapPin, Navigation, Layers } from 'react-feather';
@@ -23,20 +23,13 @@ import {
 
 import { useSpaceX } from '../utils/use-space-x';
 import { getTimezone } from '../utils/get-timezone';
-import { formatDateTime } from '../utils/format-date';
+import { formatDateTime, formatDateTimeWithoutZone } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
 
 export default function Launch() {
 	let { launchId } = useParams();
 	const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
-
-	useEffect(() => {
-		if (launch) {
-			let tz = getTimezone(launch.launch_site.site_id);
-			console.log('tz: ', tz);
-		}
-	}, [launch]);
 
 	if (error) return <Error />;
 	if (!launch) {
@@ -47,7 +40,7 @@ export default function Launch() {
 		);
 	}
 
-	console.log(launch.launch_site.site_id);
+	console.log('site id: ', launch.launch_site.site_id);
 
 	return (
 		<div>
@@ -124,6 +117,17 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
+	const [timezone, setTimezone] = useState('');
+
+	useEffect(() => {
+		if (launch) {
+			async function fetchTimezone() {
+				setTimezone(await getTimezone(launch.launch_site.site_id));
+			}
+			fetchTimezone();
+		}
+	}, [launch]);
+
 	return (
 		<SimpleGrid columns={[1, 1, 2]} borderWidth='1px' p='4' borderRadius='md'>
 			<Stat>
@@ -133,7 +137,9 @@ function TimeAndLocation({ launch }) {
 						Launch Date
 					</Box>
 				</StatLabel>
-				<StatNumber fontSize={['md', 'xl']}>{formatDateTime(launch.launch_date_local)}</StatNumber>
+				<StatNumber fontSize={['md', 'xl']}>{`${formatDateTimeWithoutZone(
+					launch.launch_date_local
+				)} ${timezone}`}</StatNumber>
 				<StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
 			</Stat>
 			<Stat>
