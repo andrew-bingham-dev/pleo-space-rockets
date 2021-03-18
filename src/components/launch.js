@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { format as timeAgo } from 'timeago.js';
-import { Watch, MapPin, Navigation, Layers } from 'react-feather';
+import { Watch, MapPin, Navigation, Layers, Star } from 'react-feather';
 import {
 	Flex,
 	Heading,
@@ -27,6 +27,7 @@ import { getTimezone } from '../utils/get-timezone';
 import { convertUtcToLocal, formatDateTimeWithoutZone } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
+import FavouriteButton from './favourite-button';
 
 export default function Launch() {
 	let { launchId } = useParams();
@@ -97,6 +98,8 @@ function Header({ launch }) {
 			>
 				{launch.mission_name}
 			</Heading>
+			<Box pos='absolute' top='5'><FavouriteButton /></Box>
+			
 			<Stack isInline spacing='3'>
 				<Badge variantColor='purple' fontSize={['xs', 'md']}>
 					#{launch.flight_number}
