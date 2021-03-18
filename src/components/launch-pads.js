@@ -6,6 +6,7 @@ import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
+import FavouriteButton from "./favourite-button";
 
 const PAGE_SIZE = 12;
 
@@ -52,6 +53,7 @@ function LaunchPadItem({ launchPad }) {
       overflow="hidden"
       position="relative"
     >
+    <Box pos='relative' top='5' left='5' w='10' pb='2'><FavouriteButton /></Box>
       <Box p="6">
         <Box d="flex" alignItems="baseline">
           {launchPad.status === "active" ? (

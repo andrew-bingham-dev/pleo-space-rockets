@@ -8,6 +8,7 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import FavouriteButton from "./favourite-button";
 
 const PAGE_SIZE = 12;
 
@@ -67,6 +68,8 @@ export function LaunchItem({ launch }) {
         objectFit="cover"
         objectPosition="bottom"
       />
+      <Box pos='absolute' top='5' left='5'><FavouriteButton /></Box>
+      
 
       <Image
         position="absolute"
