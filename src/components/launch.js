@@ -99,7 +99,7 @@ function Header({ launch }) {
 				{launch.mission_name}
 			</Heading>
 			<Box pos='absolute' top='5'>
-				<FavouriteButton />
+				<FavouriteButton type='launch' id={launch.flight_number} />
 			</Box>
 
 			<Stack isInline spacing='3'>
@@ -142,7 +142,9 @@ function TimeAndLocation({ launch }) {
 					</Box>
 				</StatLabel>
 				<StatNumber fontSize={['md', 'xl']}>
-					<Tooltip label={convertUtcToLocal(launch.launch_date_utc)}>{`${formatDateTimeWithoutZone(
+					<Tooltip
+						label={convertUtcToLocal(launch.launch_date_utc)}
+					>{`${formatDateTimeWithoutZone(
 						launch.launch_date_local
 					)} ${timezone}`}</Tooltip>
 				</StatNumber>
@@ -207,10 +209,14 @@ function RocketInfo({ launch }) {
 							Second Stage
 						</Box>
 					</StatLabel>
-					<StatNumber fontSize={['md', 'xl']}>Block {launch.rocket.second_stage.block}</StatNumber>
+					<StatNumber fontSize={['md', 'xl']}>
+						Block {launch.rocket.second_stage.block}
+					</StatNumber>
 					<StatHelpText>
 						Payload:{' '}
-						{launch.rocket.second_stage.payloads.map(payload => payload.payload_type).join(', ')}
+						{launch.rocket.second_stage.payloads
+							.map(payload => payload.payload_type)
+							.join(', ')}
 					</StatHelpText>
 				</Stat>
 			</StatGroup>

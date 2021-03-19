@@ -65,7 +65,8 @@ export default function LaunchPad() {
 	);
 }
 
-const randomColor = (start = 200, end = 250) => `hsl(${start + end * Math.random()}, 80%, 90%)`;
+const randomColor = (start = 200, end = 250) =>
+	`hsl(${start + end * Math.random()}, 80%, 90%)`;
 
 function Header({ launchPad }) {
 	return (
@@ -89,8 +90,8 @@ function Header({ launchPad }) {
 				fontSize={['md', '3xl']}
 				borderRadius='lg'
 			>
-				<Box fontSize='16px' w='10' pb='2rem'>
-					<FavouriteButton />
+				<Box>
+					<FavouriteButton type='launch-pad' id={launchPad.site_id} />
 				</Box>
 				{launchPad.site_name_long}
 			</Heading>
