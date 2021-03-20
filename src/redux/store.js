@@ -9,7 +9,6 @@ const rootReducer = combineReducers({
 });
 
 const initialState = loadState();
-console.log('initState: ', initialState);
 const store = createStore(rootReducer, initialState, composeWithDevTools());
 
 store.subscribe(() => {
