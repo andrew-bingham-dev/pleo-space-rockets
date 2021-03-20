@@ -82,33 +82,35 @@ function Header({ launchPad }) {
 			alignItems='flex-end'
 			justifyContent='space-between'
 		>
-			<Heading
-				color='gray.900'
-				display='inline'
-				mx={[2, 4]}
-				my='2'
-				fontSize={['md', '3xl']}
-				borderRadius='lg'
-			>
-				<Box>
+			<Flex direction='column'>
+				<Box mb='4'>
 					<FavouriteButton type='launch-pad' id={launchPad.site_id} />
 				</Box>
-				{launchPad.site_name_long}
-			</Heading>
-			<Stack isInline spacing='3'>
-				<Badge variantColor='purple' fontSize={['sm', 'md']}>
-					{launchPad.successful_launches}/{launchPad.attempted_launches} successful
-				</Badge>
-				{launchPad.stats === 'active' ? (
-					<Badge variantColor='green' fontSize={['sm', 'md']}>
-						Active
+				<Heading
+					color='gray.900'
+					display='inline'
+					my='2'
+					mb='4'
+					fontSize={['md', '3xl']}
+					borderRadius='lg'
+				>
+					{launchPad.site_name_long}
+				</Heading>
+				<Stack isInline spacing='3'>
+					<Badge variantColor='purple' fontSize={['sm', 'md']}>
+						{launchPad.successful_launches}/{launchPad.attempted_launches} successful
 					</Badge>
-				) : (
-					<Badge variantColor='red' fontSize={['sm', 'md']}>
-						Retired
-					</Badge>
-				)}
-			</Stack>
+					{launchPad.stats === 'active' ? (
+						<Badge variantColor='green' fontSize={['sm', 'md']}>
+							Active
+						</Badge>
+					) : (
+						<Badge variantColor='red' fontSize={['sm', 'md']}>
+							Retired
+						</Badge>
+					)}
+				</Stack>
+			</Flex>
 		</Flex>
 	);
 }

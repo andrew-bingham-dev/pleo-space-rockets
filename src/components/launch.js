@@ -87,35 +87,38 @@ function Header({ launch }) {
 				objectFit='contain'
 				objectPosition='bottom'
 			/>
-			<Heading
-				color='white'
-				display='inline'
-				backgroundColor='#718096b8'
-				fontSize={['lg', '5xl']}
-				px='4'
-				py='2'
-				borderRadius='lg'
-			>
-				{launch.mission_name}
-			</Heading>
-			<Box pos='absolute' top='5'>
-				<FavouriteButton type='launch' id={launch.flight_number} />
-			</Box>
+			<Flex direction='column'>
+				<Box mb='4'>
+					<FavouriteButton type='launch' id={launch.flight_number} />
+				</Box>
+				<Heading
+					color='white'
+					display='inline'
+					backgroundColor='#718096b8'
+					fontSize={['lg', '5xl']}
+					px='4'
+					py='2'
+					borderRadius='lg'
+					mb='4'
+				>
+					{launch.mission_name}
+				</Heading>
 
-			<Stack isInline spacing='3'>
-				<Badge variantColor='purple' fontSize={['xs', 'md']}>
-					#{launch.flight_number}
-				</Badge>
-				{launch.launch_success ? (
-					<Badge variantColor='green' fontSize={['xs', 'md']}>
-						Successful
+				<Stack isInline spacing='3'>
+					<Badge variantColor='purple' fontSize={['xs', 'md']}>
+						#{launch.flight_number}
 					</Badge>
-				) : (
-					<Badge variantColor='red' fontSize={['xs', 'md']}>
-						Failed
-					</Badge>
-				)}
-			</Stack>
+					{launch.launch_success ? (
+						<Badge variantColor='green' fontSize={['xs', 'md']}>
+							Successful
+						</Badge>
+					) : (
+						<Badge variantColor='red' fontSize={['xs', 'md']}>
+							Failed
+						</Badge>
+					)}
+				</Stack>
+			</Flex>
 		</Flex>
 	);
 }
