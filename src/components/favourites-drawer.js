@@ -10,6 +10,7 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 	Button,
+	Box,
 } from '@chakra-ui/core';
 
 import { LaunchItem } from './launches';
@@ -20,7 +21,7 @@ export default function FavouritesDrawer({ type, data }) {
 
 	return (
 		<>
-			<Button onClick={onOpen}>Open</Button>
+			<Button onClick={onOpen} pos='absolute' right='1.5rem' top='90px'>Show Favourites</Button>
 			<Drawer isOpen={isOpen} placement='right' onClose={onClose} size='sm'>
 				<DrawerOverlay />
 				<DrawerContent>
@@ -46,7 +47,9 @@ function ListLaunches({ data }) {
 			{data &&
 				data.flat().map(launch => {
 					return launches.includes(String(launch.flight_number)) ? (
-						<LaunchItem launch={launch} key={launch.flight_number} />
+						<Box bg='white' rounded='lg' my='2' border='1px solid' borderColor='gray.300'>
+							<LaunchItem launch={launch} key={launch.flight_number} />
+						</Box>
 					) : null;
 				})}
 		</>
@@ -61,7 +64,9 @@ function ListLaunchPads({ data }) {
 			{data &&
 				data.flat().map(launchPad => {
 					return launchPads.includes(launchPad.site_id) ? (
-						<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
+						<Box bg='white' rounded='lg' my='2' border='1px solid' borderColor='gray.300'>
+							<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
+						</Box>
 					) : null;
 				})}
 		</>

@@ -64,7 +64,7 @@ export default function FavouriteButton({ type, id }) {
 		<Box
 			color='yellow.400'
 			rounded='lg'
-			bg='rgba(0,0,0,0.4)'
+			bg='rgba(0,0,0,0.3)'
 			p='2'
 			onClick={handleClick}
 			zIndex='1000'

@@ -88,9 +88,7 @@ function Header({ launch }) {
 				objectPosition='bottom'
 			/>
 			<Flex direction='column'>
-				<Box mb='4'>
-					<FavouriteButton type='launch' id={launch.flight_number} />
-				</Box>
+					
 				<Heading
 					color='white'
 					display='inline'
@@ -104,7 +102,7 @@ function Header({ launch }) {
 					{launch.mission_name}
 				</Heading>
 
-				<Stack isInline spacing='3'>
+				<Stack isInline spacing='3' alignItems='center'>
 					<Badge variantColor='purple' fontSize={['xs', 'md']}>
 						#{launch.flight_number}
 					</Badge>
@@ -117,6 +115,7 @@ function Header({ launch }) {
 							Failed
 						</Badge>
 					)}
+					<FavouriteButton type='launch' id={launch.flight_number} />
 				</Stack>
 			</Flex>
 		</Flex>

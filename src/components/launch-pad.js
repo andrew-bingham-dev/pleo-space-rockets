@@ -83,20 +83,19 @@ function Header({ launchPad }) {
 			justifyContent='space-between'
 		>
 			<Flex direction='column'>
-				<Box mb='4'>
-					<FavouriteButton type='launch-pad' id={launchPad.site_id} />
-				</Box>
-				<Heading
-					color='gray.900'
-					display='inline'
-					my='2'
-					mb='4'
-					fontSize={['md', '3xl']}
-					borderRadius='lg'
-				>
-					{launchPad.site_name_long}
-				</Heading>
-				<Stack isInline spacing='3'>
+				<Flex>
+					<Heading
+						color='gray.900'
+						display='inline'
+						my='2'
+						mb='4'
+						fontSize={['md', '3xl']}
+						borderRadius='lg'
+					>
+						{launchPad.site_name_long}
+					</Heading>
+				</Flex>
+				<Stack isInline spacing='3' alignItems='center'>
 					<Badge variantColor='purple' fontSize={['sm', 'md']}>
 						{launchPad.successful_launches}/{launchPad.attempted_launches} successful
 					</Badge>
@@ -109,6 +108,7 @@ function Header({ launchPad }) {
 							Retired
 						</Badge>
 					)}
+					<FavouriteButton type='launch-pad' id={launchPad.site_id} />
 				</Stack>
 			</Flex>
 		</Flex>
