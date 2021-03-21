@@ -7,6 +7,7 @@ import Breadcrumbs from './breadcrumbs';
 import LoadMoreButton from './load-more-button';
 import { useSpaceXPaginated } from '../utils/use-space-x';
 import FavouriteButton from './favourite-button';
+import FavouritesDrawer from './favourites-drawer';
 
 const PAGE_SIZE = 12;
 
@@ -17,6 +18,7 @@ export default function LaunchPads() {
 
 	return (
 		<div>
+			<FavouritesDrawer type='launch-pads' data={data} />
 			<Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Launch Pads' }]} />
 			<SimpleGrid m={[2, null, 6]} minChildWidth='350px' spacing='4'>
 				{error && <Error />}
@@ -37,7 +39,7 @@ export default function LaunchPads() {
 	);
 }
 
-function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad }) {
 	return (
 		<Box
 			as={Link}
