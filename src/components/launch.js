@@ -27,6 +27,7 @@ import { getTimezone } from '../utils/get-timezone';
 import { convertUtcToLocal, formatDateTimeWithoutZone } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
+import FavouriteButton from './favourite-button';
 
 export default function Launch() {
 	let { launchId } = useParams();
@@ -86,31 +87,37 @@ function Header({ launch }) {
 				objectFit='contain'
 				objectPosition='bottom'
 			/>
-			<Heading
-				color='white'
-				display='inline'
-				backgroundColor='#718096b8'
-				fontSize={['lg', '5xl']}
-				px='4'
-				py='2'
-				borderRadius='lg'
-			>
-				{launch.mission_name}
-			</Heading>
-			<Stack isInline spacing='3'>
-				<Badge variantColor='purple' fontSize={['xs', 'md']}>
-					#{launch.flight_number}
-				</Badge>
-				{launch.launch_success ? (
-					<Badge variantColor='green' fontSize={['xs', 'md']}>
-						Successful
+			<Flex direction='column'>
+					
+				<Heading
+					color='white'
+					display='inline'
+					backgroundColor='#718096b8'
+					fontSize={['lg', '5xl']}
+					px='4'
+					py='2'
+					borderRadius='lg'
+					mb='4'
+				>
+					{launch.mission_name}
+				</Heading>
+
+				<Stack isInline spacing='3' alignItems='center'>
+					<Badge variantColor='purple' fontSize={['xs', 'md']}>
+						#{launch.flight_number}
 					</Badge>
-				) : (
-					<Badge variantColor='red' fontSize={['xs', 'md']}>
-						Failed
-					</Badge>
-				)}
-			</Stack>
+					{launch.launch_success ? (
+						<Badge variantColor='green' fontSize={['xs', 'md']}>
+							Successful
+						</Badge>
+					) : (
+						<Badge variantColor='red' fontSize={['xs', 'md']}>
+							Failed
+						</Badge>
+					)}
+					<FavouriteButton type='launch' id={launch.flight_number} />
+				</Stack>
+			</Flex>
 		</Flex>
 	);
 }
@@ -137,7 +144,9 @@ function TimeAndLocation({ launch }) {
 					</Box>
 				</StatLabel>
 				<StatNumber fontSize={['md', 'xl']}>
-					<Tooltip label={convertUtcToLocal(launch.launch_date_utc)}>{`${formatDateTimeWithoutZone(
+					<Tooltip
+						label={convertUtcToLocal(launch.launch_date_utc)}
+					>{`${formatDateTimeWithoutZone(
 						launch.launch_date_local
 					)} ${timezone}`}</Tooltip>
 				</StatNumber>
@@ -202,10 +211,14 @@ function RocketInfo({ launch }) {
 							Second Stage
 						</Box>
 					</StatLabel>
-					<StatNumber fontSize={['md', 'xl']}>Block {launch.rocket.second_stage.block}</StatNumber>
+					<StatNumber fontSize={['md', 'xl']}>
+						Block {launch.rocket.second_stage.block}
+					</StatNumber>
 					<StatHelpText>
 						Payload:{' '}
-						{launch.rocket.second_stage.payloads.map(payload => payload.payload_type).join(', ')}
+						{launch.rocket.second_stage.payloads
+							.map(payload => payload.payload_type)
+							.join(', ')}
 					</StatHelpText>
 				</Stat>
 			</StatGroup>
