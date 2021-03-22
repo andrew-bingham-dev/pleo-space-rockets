@@ -20,7 +20,7 @@ export function formatDateTime(timestamp) {
 }
 
 // Remove the timezone id
-export function formatDateTimeWithoutZone(timestamp) {
+export function formatDateTimeWithZoneName(timestamp, timezone) {
 	return new Intl.DateTimeFormat('en-US', {
 		year: 'numeric',
 		month: 'long',
@@ -28,11 +28,13 @@ export function formatDateTimeWithoutZone(timestamp) {
 		hour: 'numeric',
 		minute: 'numeric',
 		second: 'numeric',
+		timeZone: timezone.zoneName,
 	}).format(new Date(timestamp));
 }
 
 // Convert UTC datetime to local
 export function convertUtcToLocal(timestamp) {
 	let localDateTime = new Date(timestamp).toString();
-	return localDateTime;
+	const [formattedLocalDateTime, timeZoneDifference] = localDateTime.split('+');
+	return formattedLocalDateTime;
 }

@@ -1,6 +1,8 @@
 export async function getTimezone(launchSiteId) {
 	// Fetch launchsite coordinates from SpaceX API
-	let launchSiteDetails = await fetch(`https://api.spacexdata.com/v3/launchpads/${launchSiteId}`);
+	let launchSiteDetails = await fetch(
+		`https://api.spacexdata.com/v3/launchpads/${launchSiteId}`
+	);
 	launchSiteDetails = await launchSiteDetails.json();
 
 	// Extract the latitude and longitude of the launch site
@@ -12,6 +14,7 @@ export async function getTimezone(launchSiteId) {
 	const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&format=json&by=position&lat=${latitude}&lng=${longitude}`;
 	let timezone = await fetch(url);
 	timezone = await timezone.json();
-
-	return timezone.abbreviation;
+	console.log(timezone);
+	console.log('zoneName: ', timezone.zoneName);
+	return timezone;
 }
