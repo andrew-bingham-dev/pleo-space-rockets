@@ -24,7 +24,7 @@ import {
 
 import { useSpaceX } from '../utils/use-space-x';
 import { getTimezone } from '../utils/get-timezone';
-import { convertUtcToLocal, formatDateTimeWithoutZone } from '../utils/format-date';
+import { convertUtcToLocal, formatDateTimeWithZoneName } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
 import FavouriteButton from './favourite-button';
@@ -88,7 +88,6 @@ function Header({ launch }) {
 				objectPosition='bottom'
 			/>
 			<Flex direction='column'>
-					
 				<Heading
 					color='white'
 					display='inline'
@@ -134,6 +133,10 @@ function TimeAndLocation({ launch }) {
 		}
 	}, [launch]);
 
+	//DEBUG
+	console.log('UTC: ', launch.launch_date_utc);
+	console.log('Local: ', launch.launch_date_local);
+
 	return (
 		<SimpleGrid columns={[1, 1, 2]} borderWidth='1px' p='4' borderRadius='md'>
 			<Stat>
@@ -146,9 +149,9 @@ function TimeAndLocation({ launch }) {
 				<StatNumber fontSize={['md', 'xl']}>
 					<Tooltip
 						label={convertUtcToLocal(launch.launch_date_utc)}
-					>{`${formatDateTimeWithoutZone(
-						launch.launch_date_local
-					)} ${timezone}`}</Tooltip>
+					>{`${formatDateTimeWithZoneName(launch.launch_date_local, timezone)} ${
+						timezone.abbreviation
+					}`}</Tooltip>
 				</StatNumber>
 				<StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
 			</Stat>
