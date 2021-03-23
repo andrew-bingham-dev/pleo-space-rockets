@@ -43,11 +43,11 @@ export default function Launches() {
 					data
 						.flat()
 						.map(launch =>
-							filterOption == 1 ? (
+							filterOption === '1' ? (
 								<LaunchItem launch={launch} key={launch.flight_number} />
-							) : filterOption == 2 && launch.launch_success ? (
+							) : filterOption === '2' && launch.launch_success ? (
 								<LaunchItem launch={launch} key={launch.flight_number} />
-							) : filterOption == 3 && !launch.launch_success ? (
+							) : filterOption === '3' && !launch.launch_success ? (
 								<LaunchItem launch={launch} key={launch.flight_number} />
 							) : null
 						)}
