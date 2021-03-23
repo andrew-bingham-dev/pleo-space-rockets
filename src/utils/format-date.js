@@ -28,7 +28,7 @@ export function formatDateTimeWithZoneName(timestamp, timezone) {
 		hour: 'numeric',
 		minute: 'numeric',
 		second: 'numeric',
-		timeZone: timezone.zoneName,
+		timeZone: timezone,
 	}).format(new Date(timestamp));
 }
 

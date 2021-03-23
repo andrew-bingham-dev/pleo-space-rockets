@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/core';
 
 import { useSpaceX } from '../utils/use-space-x';
-import { getTimezone } from '../utils/get-timezone';
+import { useTimezone } from '../utils/use-timezone';
 import { convertUtcToLocal, formatDateTimeWithZoneName } from '../utils/format-date';
 import Error from './error';
 import Breadcrumbs from './breadcrumbs';
@@ -122,20 +122,7 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
-	const [timezone, setTimezone] = useState('');
-
-	useEffect(() => {
-		if (launch) {
-			async function fetchTimezone() {
-				setTimezone(await getTimezone(launch.launch_site.site_id));
-			}
-			fetchTimezone();
-		}
-	}, [launch]);
-
-	//DEBUG
-	console.log('UTC: ', launch.launch_date_utc);
-	console.log('Local: ', launch.launch_date_local);
+	const { data: timezone } = useTimezone(launch.launch_site.site_id);
 
 	return (
 		<SimpleGrid columns={[1, 1, 2]} borderWidth='1px' p='4' borderRadius='md'>
@@ -147,11 +134,10 @@ function TimeAndLocation({ launch }) {
 					</Box>
 				</StatLabel>
 				<StatNumber fontSize={['md', 'xl']}>
-					<Tooltip
-						label={convertUtcToLocal(launch.launch_date_utc)}
-					>{`${formatDateTimeWithZoneName(launch.launch_date_local, timezone)} ${
-						timezone.abbreviation
-					}`}</Tooltip>
+					<Tooltip label={convertUtcToLocal(launch.launch_date_utc)}>{`${
+						timezone &&
+						formatDateTimeWithZoneName(launch.launch_date_local, timezone?.zoneName)
+					} ${timezone?.abbreviation}`}</Tooltip>
 				</StatNumber>
 				<StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
 			</Stat>
