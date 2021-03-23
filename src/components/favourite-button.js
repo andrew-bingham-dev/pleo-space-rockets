@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Tooltip } from '@chakra-ui/core';
+import { Box, Tooltip, Button } from '@chakra-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { motion } from 'framer-motion';
 
 import {
 	addLaunch,
@@ -61,24 +62,17 @@ export default function FavouriteButton({ type, id }) {
 	}
 
 	return (
-		<Box
-			color='yellow.400'
-			rounded='lg'
-			bg='rgba(0,0,0,0.3)'
-			p='2'
-			onClick={handleClick}
-			zIndex='1000'
-			fontSize='15px'
-			maxW='39px'
-		>
+		<Box color='yellow.400' onClick={handleClick}>
 			<Tooltip label='Add item to favourites'>
-				<Box opacity='1'>
-					<FontAwesomeIcon
-						icon={isFavourite() ? faStar : farStar}
-						size='lg'
-						opacity='1'
-					/>
-				</Box>
+				<Button size='sm'>
+					<motion.div whileHover={{ scale: 1.3 }}>
+						<FontAwesomeIcon
+							icon={isFavourite() ? faStar : farStar}
+							size='lg'
+							opacity='1'
+						/>
+					</motion.div>
+				</Button>
 			</Tooltip>
 		</Box>
 	);

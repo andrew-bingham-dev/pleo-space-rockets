@@ -16,6 +16,7 @@ import {
 	Stack,
 	AspectRatioBox,
 } from '@chakra-ui/core';
+import { motion } from 'framer-motion';
 
 import { useSpaceX } from '../utils/use-space-x';
 import Error from './error';
@@ -44,7 +45,7 @@ export default function LaunchPad() {
 	}
 
 	return (
-		<div>
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<Breadcrumbs
 				items={[
 					{ label: 'Home', to: '/' },
@@ -61,7 +62,7 @@ export default function LaunchPad() {
 				<Map location={launchPad.location} />
 				<RecentLaunches launches={launches} />
 			</Box>
-		</div>
+		</motion.div>
 	);
 }
 

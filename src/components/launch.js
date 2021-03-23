@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { format as timeAgo } from 'timeago.js';
 import { Watch, MapPin, Navigation, Layers } from 'react-feather';
@@ -21,6 +21,7 @@ import {
 	StatGroup,
 	Tooltip,
 } from '@chakra-ui/core';
+import { motion } from 'framer-motion';
 
 import { useSpaceX } from '../utils/use-space-x';
 import { useTimezone } from '../utils/use-timezone';
@@ -43,7 +44,7 @@ export default function Launch() {
 	}
 
 	return (
-		<div>
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<Breadcrumbs
 				items={[
 					{ label: 'Home', to: '/' },
@@ -61,7 +62,7 @@ export default function Launch() {
 				<Video launch={launch} />
 				<Gallery images={launch.links.flickr_images} />
 			</Box>
-		</div>
+		</motion.div>
 	);
 }
 
