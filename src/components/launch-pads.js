@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge, Box, SimpleGrid, Text, Flex } from '@chakra-ui/core';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,10 +9,12 @@ import LoadMoreButton from './load-more-button';
 import { useSpaceXPaginated } from '../utils/use-space-x';
 import FavouriteButton from './favourite-button';
 import FavouritesDrawer from './favourites-drawer';
+import FilterBar from './filter-bar';
 
 const PAGE_SIZE = 12;
 
 export default function LaunchPads() {
+	const [filterOption, setFilterOption] = useState('1'); // 1: All, 2: Successful, 3: Failed
 	const { data, error, isValidating, size, setSize } = useSpaceXPaginated('/launchpads', {
 		limit: PAGE_SIZE,
 	});
@@ -21,14 +23,27 @@ export default function LaunchPads() {
 		<div>
 			<FavouritesDrawer type='launch-pads' data={data} />
 			<Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Launch Pads' }]} />
+			<FilterBar
+				filterOption={filterOption}
+				setFilterOption={setFilterOption}
+				option1='All'
+				option2='Active'
+				option3='Retired'
+			/>
 			<SimpleGrid m={[2, null, 6]} minChildWidth='350px' spacing='4'>
 				{error && <Error />}
 				{data &&
 					data
 						.flat()
-						.map(launchPad => (
-							<LaunchPadItem key={launchPad.site_id} launchPad={launchPad} />
-						))}
+						.map(launchPad =>
+							filterOption == 1 ? (
+								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
+							) : filterOption == 2 && launchPad.status == 'active' ? (
+								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
+							) : filterOption == 3 && launchPad.status == 'retired' ? (
+								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
+							) : null
+						)}
 			</SimpleGrid>
 			<LoadMoreButton
 				loadMore={() => setSize(size + 1)}

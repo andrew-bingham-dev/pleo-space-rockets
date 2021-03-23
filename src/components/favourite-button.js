@@ -38,8 +38,6 @@ export default function FavouriteButton({ type, id }) {
 	function handleClick(e) {
 		e.preventDefault();
 
-		console.log('isfav: ', isFavourite());
-
 		if (type === 'launch') {
 			if (isFavourite()) {
 				dispatch(removeLaunch(id));
@@ -57,8 +55,6 @@ export default function FavouriteButton({ type, id }) {
 		}
 
 		isActive ? setIsActive(false) : setIsActive(true);
-		console.log('type: ', type);
-		console.log('id: ', id);
 	}
 
 	return (
