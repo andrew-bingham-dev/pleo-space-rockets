@@ -27,8 +27,9 @@ export default function FavouritesDrawer({ type, data }) {
 				onClick={onOpen}
 				pos='absolute'
 				right='1.5rem'
-				top='90px'
+				top='95px'
 				fontWeight='normal'
+				size='sm'
 			>
 				Show Favourites
 			</Button>
@@ -57,14 +58,13 @@ function ListLaunches({ data }) {
 			{data &&
 				data.flat().map(launch => {
 					return launches.includes(String(launch.flight_number)) ? (
-						<motion.div whileHover={{ scale: 1.025 }}>
+						<motion.div whileHover={{ scale: 1.025 }} key={launch.flight_number}>
 							<Box
 								bg='white'
 								rounded='lg'
 								my='2'
 								border='1px solid'
 								borderColor='gray.300'
-								key={launch.flight_number}
 							>
 								<DeleteItemButton type='launch' item={String(launch.flight_number)} />
 								<LaunchItem launch={launch} />
@@ -83,14 +83,14 @@ function ListLaunchPads({ data }) {
 			{data &&
 				data.flat().map(launchPad => {
 					return launchPads.includes(launchPad.site_id) ? (
-						<motion.div whileHover={{ scale: 1.025 }}>
+						<motion.div whileHover={{ scale: 1.025 }} key={launchPad.site_id}>
 							<Box
 								bg='white'
 								rounded='lg'
 								my='2'
 								border='1px solid'
 								borderColor='gray.300'
-								key={launchPad.site_id}
+								
 							>
 								<DeleteItemButton type='launch-pad' item={launchPad.site_id} />
 								<LaunchPadItem launchPad={launchPad} />

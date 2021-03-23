@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge, Box, Image, SimpleGrid, Text, Flex } from '@chakra-ui/core';
 import { format as timeAgo } from 'timeago.js';
 import { Link } from 'react-router-dom';
@@ -11,10 +11,12 @@ import Breadcrumbs from './breadcrumbs';
 import LoadMoreButton from './load-more-button';
 import FavouriteButton from './favourite-button';
 import FavouritesDrawer from './favourites-drawer';
+import FilterBar from './filter-bar';
 
 const PAGE_SIZE = 12;
 
 export default function Launches() {
+	const [filterOption, setFilterOption] = useState('1'); // 1: All, 2: Successful, 3: Failed
 	const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
 		'/launches/past',
 		{
@@ -28,12 +30,27 @@ export default function Launches() {
 		<div>
 			<FavouritesDrawer type='launches' data={data} />
 			<Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Launches' }]} />
+			<FilterBar
+				filterOption={filterOption}
+				setFilterOption={setFilterOption}
+				option1='All'
+				option2='Successful'
+				option3='Failed'
+			/>
 			<SimpleGrid m={[2, null, 6]} minChildWidth='350px' spacing='4'>
 				{error && <Error />}
 				{data &&
 					data
 						.flat()
-						.map(launch => <LaunchItem launch={launch} key={launch.flight_number} />)}
+						.map(launch =>
+							filterOption == 1 ? (
+								<LaunchItem launch={launch} key={launch.flight_number} />
+							) : filterOption == 2 && launch.launch_success ? (
+								<LaunchItem launch={launch} key={launch.flight_number} />
+							) : filterOption == 3 && !launch.launch_success ? (
+								<LaunchItem launch={launch} key={launch.flight_number} />
+							) : null
+						)}
 			</SimpleGrid>
 			<LoadMoreButton
 				loadMore={() => setSize(size + 1)}
