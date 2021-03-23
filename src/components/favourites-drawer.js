@@ -16,6 +16,7 @@ import {
 import { LaunchItem } from './launches';
 import { LaunchPadItem } from './launch-pads';
 import { removeLaunchPad, removeLaunch } from '../redux/favourites/actions';
+import { motion } from 'framer-motion';
 
 export default function FavouritesDrawer({ type, data }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,17 +57,19 @@ function ListLaunches({ data }) {
 			{data &&
 				data.flat().map(launch => {
 					return launches.includes(String(launch.flight_number)) ? (
-						<Box
-							bg='white'
-							rounded='lg'
-							my='2'
-							border='1px solid'
-							borderColor='gray.300'
-							key={launch.flight_number}
-						>
-							<DeleteItemButton type='launch' item={String(launch.flight_number)} />
-							<LaunchItem launch={launch} />
-						</Box>
+						<motion.div whileHover={{ scale: 1.025 }}>
+							<Box
+								bg='white'
+								rounded='lg'
+								my='2'
+								border='1px solid'
+								borderColor='gray.300'
+								key={launch.flight_number}
+							>
+								<DeleteItemButton type='launch' item={String(launch.flight_number)} />
+								<LaunchItem launch={launch} />
+							</Box>
+						</motion.div>
 					) : null;
 				})}
 		</>
@@ -80,17 +83,19 @@ function ListLaunchPads({ data }) {
 			{data &&
 				data.flat().map(launchPad => {
 					return launchPads.includes(launchPad.site_id) ? (
-						<Box
-							bg='white'
-							rounded='lg'
-							my='2'
-							border='1px solid'
-							borderColor='gray.300'
-							key={launchPad.site_id}
-						>
-							<DeleteItemButton type='launch-pad' item={launchPad.site_id} />
-							<LaunchPadItem launchPad={launchPad} />
-						</Box>
+						<motion.div whileHover={{ scale: 1.025 }}>
+							<Box
+								bg='white'
+								rounded='lg'
+								my='2'
+								border='1px solid'
+								borderColor='gray.300'
+								key={launchPad.site_id}
+							>
+								<DeleteItemButton type='launch-pad' item={launchPad.site_id} />
+								<LaunchPadItem launchPad={launchPad} />
+							</Box>
+						</motion.div>
 					) : null;
 				})}
 		</>

@@ -1,3 +1,5 @@
+import useSWR from 'swr';
+
 export async function getTimezone(launchSiteId) {
 	// Fetch launchsite coordinates from SpaceX API
 	let launchSiteDetails = await fetch(
@@ -14,7 +16,9 @@ export async function getTimezone(launchSiteId) {
 	const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&format=json&by=position&lat=${latitude}&lng=${longitude}`;
 	let timezone = await fetch(url);
 	timezone = await timezone.json();
-	console.log(timezone);
-	console.log('zoneName: ', timezone.zoneName);
 	return timezone;
+}
+
+export function useTimezone(launchSiteId) {
+	return useSWR(launchSiteId, getTimezone);
 }
