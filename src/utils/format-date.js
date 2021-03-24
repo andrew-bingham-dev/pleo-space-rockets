@@ -35,6 +35,6 @@ export function formatDateTimeWithZoneName(timestamp, timezone) {
 // Convert UTC datetime to local
 export function convertUtcToLocal(timestamp) {
 	let localDateTime = new Date(timestamp).toString();
-	const [formattedLocalDateTime, timeZoneDifference] = localDateTime.split('+');
+	const [formattedLocalDateTime] = localDateTime.split('+');
 	return formattedLocalDateTime;
 }
