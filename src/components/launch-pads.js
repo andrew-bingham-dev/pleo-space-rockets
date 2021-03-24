@@ -38,9 +38,9 @@ export default function LaunchPads() {
 						.map(launchPad =>
 							filterOption === '1' ? (
 								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
-							) : filterOption === '2' && launchPad.status == 'active' ? (
+							) : filterOption === '2' && launchPad.status === 'active' ? (
 								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
-							) : filterOption === '3' && launchPad.status == 'retired' ? (
+							) : filterOption === '3' && launchPad.status === 'retired' ? (
 								<LaunchPadItem launchPad={launchPad} key={launchPad.site_id} />
 							) : null
 						)}
